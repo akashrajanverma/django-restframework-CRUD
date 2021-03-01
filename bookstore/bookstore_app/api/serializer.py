@@ -3,17 +3,20 @@ from django.utils import timezone
 
 class AuthorSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=200)
-    added_by = serializers.CharField(max_length=200)
-    created_date = serializers.DateTimeField(default=timezone.now)
+    def validate(self, data):
+        return data
 
-    def validate_name(self, value):
-        name = ['akash', 'vikas']
-        if value.lower() not in name:
-            raise serializers.ValidationError("Not a valid name")
-        return value
+class BookSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=200)
+    description = serializers.CharField(max_length=200)
+    author = serializers.CharField(max_length=200)
 
-    def validate_added_by(self, value):
-        name = ['akash', 'mohit']
-        if value.lower() not in name:
-            raise serializers.ValidationError("Not a valid name")
-        return value
+    def validate(self, data):
+        return data
+
+class UpdateBookSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=200)
+    new_title = serializers.CharField(max_length=200)
+
+    def validate(self, data):
+        return data
